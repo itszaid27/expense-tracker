@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Balance from "./Components/Balance";
+import Transactions from "./Components/Transactions";
+import ExpenseForm from "./Components/ExpenseForm";
 import "./app.css";
 const App = () => {
   const [balance, setBalance] = useState(0);
@@ -15,8 +17,8 @@ const App = () => {
     <>
       <h1>Expense Tracker</h1>
       <Balance balance={balance} />
-      <button onClick={decrement}>-</button>
-      <button onClick={increment}>+</button>
+      <Transactions />
+      <ExpenseForm />
     </>
   );
 };

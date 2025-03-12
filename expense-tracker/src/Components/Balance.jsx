@@ -4,7 +4,7 @@ const Balance = (props) => {
   return (
     <>
       <h2>Your Balance</h2>
-      <h3>{props.balance}</h3>
+      <h3>${props.balance}</h3>
     </>
   );
 };
