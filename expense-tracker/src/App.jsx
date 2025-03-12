@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import Balance from "./Components/Balance";
 
 const App = () => {
+  const [balance, setBalance] = useState(0);
+
+  function increment() {
+    setBalance((balance) => balance + 10);
+  }
+  function decrement() {
+    setBalance((balance) => balance - 10);
+  }
+
   return (
     <>
       <h1>Expense Tracker</h1>
+      <Balance balance={balance} />
+      <button onClick={decrement}>-</button>
+      <button onClick={increment}>+</button>
     </>
   );
 };
