@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Balance from "./Components/Balance";
 import Transactions from "./Components/Transactions";
 import ExpenseForm from "./Components/ExpenseForm";
+import TransactionType from "./Components/TransactionType";
+import History from "./Components/History";
+
 import "./app.css";
 const App = () => {
   const [balance, setBalance] = useState(0);
@@ -19,6 +22,8 @@ const App = () => {
       <Balance balance={balance} />
       <Transactions />
       <ExpenseForm />
+      <TransactionType />
+      <History />
     </>
   );
 };

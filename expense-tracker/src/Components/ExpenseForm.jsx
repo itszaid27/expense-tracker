@@ -1,4 +1,5 @@
 import React from "react";
+import "../app.css";
 
 const ExpenseForm = () => {
   return (
@@ -14,7 +15,7 @@ const ExpenseForm = () => {
           <br />
           <label htmlFor="">Amount</label>
           <br />
-          <input type="number" name="text" id="text" placeholder="Ex:Rent" />
+          <input type="number" name="text" id="text" placeholder="$1000" />
         </form>
       </div>
     </>
