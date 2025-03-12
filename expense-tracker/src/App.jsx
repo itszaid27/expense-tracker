@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Balance from "./Components/Balance";
-
+import "./app.css";
 const App = () => {
   const [balance, setBalance] = useState(0);
 
