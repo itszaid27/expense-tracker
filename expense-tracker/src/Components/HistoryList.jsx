@@ -1,12 +1,18 @@
 import React from "react";
 
-const HistoryList = ({ type, amount }) => {
+const HistoryList = ({ text, type, amount }) => {
+  const styles = {
+    backgroundColor: type === "income" ? "green" : "red",
+    color: "white",
+  };
   return (
-    <div className="history-item">
-      <p>
-        {type.toUpperCase()}: ${amount}
-      </p>
-    </div>
+    <>
+      <div style={styles} className="history-item">
+        <p>
+          {text}: ${amount}
+        </p>
+      </div>
+    </>
   );
 };
 

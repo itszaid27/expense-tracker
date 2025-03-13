@@ -19,8 +19,8 @@ const App = () => {
     ]);
   }
 
-  const transactionHistory = history.map((item) => (
-    <HistoryList key={item.id} type={item.type} amount={item.amount} />
+  const transactionHistory = transactions.map((item) => (
+    <HistoryList type={item.type} text={item.text} amount={item.amount} />
   ));
 
   return (
@@ -29,7 +29,14 @@ const App = () => {
       <Balance transactions={transactions} />
       <Transactions transactions={transactions} />
       <AddTransactions addTransaction={addTransaction} />
-      {transactionHistory}
+
+      {transactions.length > 0 && (
+        <>
+          <h3>Transaction History</h3>
+          <hr />
+          <div className="history-list">{transactionHistory}</div>
+        </>
+      )}
     </>
   );
 };

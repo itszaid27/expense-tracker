@@ -7,6 +7,10 @@ const AddTransactions = ({ addTransaction }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!text.trim() || !amount) {
+      alert("Please enter valid text and amount.");
+      return;
+    }
     const newTransaction = {
       text,
       amount: Number(amount), // Convert string to number
@@ -28,7 +32,7 @@ const AddTransactions = ({ addTransaction }) => {
         <input
           type="text"
           id="text"
-          placeholder="Enter description"
+          placeholder="Rent"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
@@ -37,7 +41,7 @@ const AddTransactions = ({ addTransaction }) => {
         <input
           type="number"
           id="amount"
-          placeholder="Enter amount"
+          placeholder="$1000"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
