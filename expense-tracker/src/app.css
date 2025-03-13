@@ -1,105 +1,124 @@
-*{
-    box-sizing: border-box;
-    font-family: 'Inter';
-    font-weight: 400;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
 }
 
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
-    margin: 0;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Make sure it takes full screen height */
+  background-color: #f5f5f5;
+}
+
+.container {
+  width: 90%;
+  max-width: 400px; /* Adjust based on your design */
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.balance {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
 .transaction {
-    display: flex;         
-    justify-content: space-between; 
-    align-items: center;   
-    gap: 15px;            
-    padding: 10px;
-    border-radius: 8px;
-    max-width: 400px; 
-    min-width: 250px; 
-    width: 275px;
-    margin: auto; 
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px 0; /* Ensures spacing between transactions */
+  background: white;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
 
 
-  .transaction>h2{
-    font-weight: bold;
-  }
+.transaction-type {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px; /* Adds space above the buttons */
 
-form {
-    max-width: 300px;
-    margin: 20px auto; 
-    padding: 15px;
-    background: #f8f9fa; 
-    border-radius: 8px;
-    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  label {
-    display: block;
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 5px; 
-  }
-  
-  input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-  }
-  
-  input:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
-  form br {
-    display: none; 
-  }
+}
 
-  .transaction-type {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-    gap: 10px; 
-    width: 100%; 
-    max-width: 350px;
-    margin: auto;
+.transaction .income{
+  color: green;
+}
+
+.transaction .expenses{
+  color:red;
 }
 
 .transaction-type div {
-    display: flex;
-    gap: 10px; 
-    width: 100%; 
+  display: flex;
+  gap: 10px;
+  width: 100%;
 }
 
 .transaction-type button {
-    background-color: rgb(25, 139, 101);
-    border: none;
-    padding: 10px;
-    border-radius: 7px;
-    font-size: medium;
-    color: white;
-    width: 100%; 
-    cursor: pointer;
+  background-color: rgb(25, 139, 101);
+  border: none;
+  padding: 10px;
+  border-radius: 7px;
+  font-size: medium;
+  color: white;
+  width: 100%;
+  cursor: pointer;
 }
 
 .transaction-type div button {
-    background-color: rgb(42, 149, 176);
-    border: none;
-    padding: 10px;
-    border-radius: 7px;
-    font-size: medium;
-    color: white;
-    flex: 1; 
-    cursor: pointer;
+  background-color: rgb(42, 149, 176);
+  flex: 1;
+}
+
+/* Form Styling */
+.expense-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.submit-btn {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
 }

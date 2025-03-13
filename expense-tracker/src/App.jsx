@@ -23,7 +23,6 @@ const App = () => {
       <Transactions />
       <ExpenseForm />
       <TransactionType />
-      <History />
     </>
   );
 };
