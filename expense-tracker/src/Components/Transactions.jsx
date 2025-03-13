@@ -1,17 +1,20 @@
 import React from "react";
-import "../app.css";
 
-const Transactions = () => {
+const Transactions = ({ transactions }) => {
+  const calculateTotal = (type) =>
+    transactions
+      .filter((t) => t.type === type)
+      .reduce((total, t) => total + t.amount, 0);
+
   return (
     <div className="transaction">
       <div className="income">
-        <h2>Income</h2>
-        <h3>0.00</h3>
+        <p>Income</p>
+        <p>${calculateTotal("income")}</p>
       </div>
-      <div className="separator"></div>
       <div className="expenses">
-        <h2>Expense</h2>
-        <h3>0.00</h3>
+        <p>Expense</p>
+        <p>${calculateTotal("expense")}</p>
       </div>
     </div>
   );

@@ -58,11 +58,11 @@ h1 {
 }
 
 .transaction .income{
-  color: green;
+  color: #008000;
 }
 
 .transaction .expenses{
-  color:red;
+  color:#ff0000;
 }
 
 .transaction-type div {
@@ -72,7 +72,7 @@ h1 {
 }
 
 .transaction-type button {
-  background-color: rgb(25, 139, 101);
+  background-color: #008000;;
   border: none;
   padding: 10px;
   border-radius: 7px;
@@ -87,19 +87,6 @@ h1 {
   flex: 1;
 }
 
-/* Form Styling */
-.expense-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
 
 input {
   width: 100%;
@@ -119,16 +106,68 @@ input {
   cursor: pointer;
 }
 
-.submit-btn:hover {
-  background-color: #0056b3;
-}
 
 .history-item {
   display: flex;
-  justify-content: space-between; /* Pushes type and amount apart */
+  justify-content: space-between; 
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
   background: #f9f9f9;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.button-group .income-btn {
+  background-color: #008000;
+  color: #ccc;
+}
+
+.button-group .expense-btn {
+  background-color: #ff0000;
+  color: #ccc;
+}
+
+button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100px; 
+}
+
+.add-transaction-btn {
+  width: 100%;
+  background-color: #007bff;
+  color: #ccc;
+}
+
+.transaction-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  gap: 10px; 
+  width: 100%;
+  max-width: 300px; 
+}
+
+label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
 }
