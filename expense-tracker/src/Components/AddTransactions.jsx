@@ -13,7 +13,7 @@ const AddTransactions = ({ addTransaction }) => {
     }
     const newTransaction = {
       text,
-      amount: Number(amount), // Convert string to number
+      amount: Number(amount),
       type,
     };
 
@@ -25,45 +25,47 @@ const AddTransactions = ({ addTransaction }) => {
 
   return (
     <>
-      <h3>Add new Transactions</h3>
+      <h3 className="add-transaction-text">Add new Transactions</h3>
       <hr />
-      <form className="transaction-form" onSubmit={handleSubmit}>
-        <label htmlFor="text">Text</label>
+      <form onSubmit={handleSubmit} className="transaction-form">
+        <label>Text</label>
         <input
           type="text"
-          id="text"
-          placeholder="Rent"
+          name="text"
+          placeholder="Enter transaction name"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
 
-        <label htmlFor="amount">Amount</label>
+        <label>Amount</label>
         <input
           type="number"
-          id="amount"
-          placeholder="$1000"
+          name="amount"
+          placeholder="Enter amount"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
 
-        <div className="button-group">
+        <div className="transaction-type">
           <button
             type="button"
-            className="income-btn"
             onClick={() => setType("income")}
+            className={type === "income" ? "income-btn selected" : "income-btn"}
           >
             Income
           </button>
           <button
             type="button"
-            className="expense-btn"
             onClick={() => setType("expense")}
+            className={
+              type === "expense" ? "expense-btn selected" : "expense-btn"
+            }
           >
             Expense
           </button>
         </div>
 
-        <button type="submit" className="add-transaction-btn">
+        <button type="submit" className="submit-btn">
           Add Transaction
         </button>
       </form>

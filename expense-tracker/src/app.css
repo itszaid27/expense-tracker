@@ -37,7 +37,7 @@ h1 {
 .transaction {
   display: flex;
   height: 6rem;
-  justify-content:space-around;
+  justify-content:space-between;
   align-items: center;
   padding: 10px;
   border: 1px solid #ddd;
@@ -47,16 +47,21 @@ h1 {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.add-transaction-text{
+  margin-bottom: 15px;
+}
 .transaction .income {
-  color: #008000;
+  color: #3b7c3b;
   font-size:x-large;
   padding: 10px;
+  font-weight: 600;
 }
 
 .transaction .expenses {
-  color: #ff0000;
+  color: #e02b2b;
   font-size:x-large;
   padding: 10px;
+  font-weight: 600;
 }
 
 .transaction-form {
@@ -69,6 +74,7 @@ h1 {
 label {
   font-size: 16px;
   font-weight: bold;
+  margin-top: 7px;
 }
 
 input {
@@ -97,11 +103,12 @@ input {
 }
 
 .button-group .income-btn {
-  background-color: #008000;
+  background-color:#3b7c3b;
 }
 
 .button-group .expense-btn {
-  background-color: #ff0000;
+  background-color: #e02b2b;
+  ;
 }
 
 .add-transaction-btn {
@@ -126,3 +133,48 @@ input {
   border-radius: 5px;
   background: #f9f9f9;
 }
+
+.transaction-type{
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.income-btn {
+  background-color: #3b7c3b; 
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  font-size: medium;
+  color: white;
+
+}
+
+.expense-btn {
+  background-color: #e02b2b; 
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  font-size: medium;
+  color: white;
+}
+
+.income-btn:not(.selected),
+.expense-btn:not(.selected) {
+  background-color: #ccc;
+  color: black;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
