@@ -13,7 +13,6 @@ const AddTransactions = ({ addTransaction }) => {
       return;
     }
     const newTransaction = {
-      id: nanoid(),
       text,
       amount: Number(amount),
       type,
@@ -34,7 +33,7 @@ const AddTransactions = ({ addTransaction }) => {
         <input
           type="text"
           name="text"
-          placeholder="Enter transaction name"
+          placeholder="Rent"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
@@ -43,7 +42,7 @@ const AddTransactions = ({ addTransaction }) => {
         <input
           type="number"
           name="amount"
-          placeholder="Enter amount"
+          placeholder="$1000"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />

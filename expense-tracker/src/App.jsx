@@ -1,8 +1,15 @@
-import React, { use, useState } from "react";
+import React, { use, useState, useEffect } from "react";
+import { db } from "./firebaseConfig"; // Import Firestore instance
+import {
+  collection,
+  addDoc,
+  onSnapshot,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import Balance from "./Components/Balance";
 import Transactions from "./Components/Transactions";
 import AddTransactions from "./Components/AddTransactions";
-import history from "./history";
 import HistoryList from "./Components/HistoryList";
 import "./app.css";
 
@@ -12,19 +19,52 @@ const App = () => {
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
 
-  function addTransaction(newTransaction) {
-    setTransactions((prevTransactions) => [
-      ...prevTransactions,
-      newTransaction,
-    ]);
+  // function addTransaction(newTransaction) {
+  //   setTransactions((prevTransactions) => [
+  //     ...prevTransactions,
+  //     newTransaction,
+  //   ]);
+  // }
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      collection(db, "transactions"),
+      (snapshot) => {
+        const transactionData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setTransactions(transactionData);
+      }
+    );
+    return () => unsubscribe();
+  }, []);
+
+  async function addTransaction(newTransaction) {
+    try {
+      await addDoc(collection(db, "transactions"), newTransaction);
+    } catch (error) {
+      console.error("Error adding transaction: ", error);
+    }
   }
 
+  async function handleDeleteTransaction(id) {
+    try {
+      await deleteDoc(doc(db, "transactions", id));
+      console.log("Deleted transaction with id:", id);
+      // No need to update local state manually—onSnapshot will update it.
+    } catch (error) {
+      console.error("Error deleting transaction:", error);
+    }
+  }
   const transactionHistory = transactions.map((item) => (
     <HistoryList
       key={item.id}
+      id={item.id}
       type={item.type}
       text={item.text}
       amount={item.amount}
+      deleteTransaction={handleDeleteTransaction}
     />
   ));
 

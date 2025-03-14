@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "firebase": "^11.4.0",
     "nanoid": "^5.1.3"
   }
 }
