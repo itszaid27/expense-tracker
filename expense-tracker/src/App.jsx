@@ -6,6 +6,7 @@ import {
   onSnapshot,
   deleteDoc,
   doc,
+  Timestamp,
 } from "firebase/firestore";
 import Balance from "./Components/Balance";
 import Transactions from "./Components/Transactions";
@@ -34,9 +35,13 @@ const App = () => {
           id: doc.id,
           ...doc.data(),
         }));
-        setTransactions(transactionData);
+
+        setTransactions(
+          transactionData.sort((a, b) => a.timestamp - b.timestamp)
+        );
       }
     );
+
     return () => unsubscribe();
   }, []);
 
