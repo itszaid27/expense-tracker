@@ -1,6 +1,6 @@
 import React from "react";
 
-const HistoryList = ({ text, type, amount }) => {
+const HistoryList = ({ id, text, type, amount }) => {
   const styles = {
     backgroundColor: type === "income" ? "green" : "red",
     color: "white",

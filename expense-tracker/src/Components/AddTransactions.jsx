@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { nanoid } from "nanoid";
 
 const AddTransactions = ({ addTransaction }) => {
   const [text, setText] = useState("");
@@ -12,6 +13,7 @@ const AddTransactions = ({ addTransaction }) => {
       return;
     }
     const newTransaction = {
+      id: nanoid(),
       text,
       amount: Number(amount),
       type,

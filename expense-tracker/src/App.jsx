@@ -20,7 +20,12 @@ const App = () => {
   }
 
   const transactionHistory = transactions.map((item) => (
-    <HistoryList type={item.type} text={item.text} amount={item.amount} />
+    <HistoryList
+      key={item.id}
+      type={item.type}
+      text={item.text}
+      amount={item.amount}
+    />
   ));
 
   return (
