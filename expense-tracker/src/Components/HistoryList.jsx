@@ -17,7 +17,7 @@ const HistoryList = ({ id, text, type, amount, deleteTransaction }) => {
       <p>
         {text}: ${amount}
       </p>
-      <button onClick={handleDelete}>Delete</button>
+      <button onClick={handleDelete}>del</button>
     </div>
   );
 };

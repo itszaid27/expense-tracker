@@ -19,13 +19,6 @@ const App = () => {
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
 
-  // function addTransaction(newTransaction) {
-  //   setTransactions((prevTransactions) => [
-  //     ...prevTransactions,
-  //     newTransaction,
-  //   ]);
-  // }
-
   useEffect(() => {
     const unsubscribe = onSnapshot(
       collection(db, "transactions"),
