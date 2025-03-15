@@ -25,6 +25,9 @@ body {
 h1 {
   text-align: center;
   margin-bottom: 20px;
+  background-color: #ddd;
+  padding: 25px;
+  border-radius: 20px;
 }
 
 .balance {

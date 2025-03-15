@@ -1,5 +1,5 @@
 import React, { use, useState, useEffect } from "react";
-import { db } from "./firebaseConfig"; // Import Firestore instance
+import { db } from "./firebaseConfig"; 
 import {
   collection,
   addDoc,
@@ -28,13 +28,13 @@ const App = () => {
           id: doc.id,
           ...doc.data(),
         }));
-
-        setTransactions(
-          transactionData.sort((a, b) => a.timestamp - b.timestamp)
-        );
+  
+        const sortedTransactions = transactionData.sort((a, b) => b.timestamp - a.timestamp);
+  
+        setTransactions(sortedTransactions);
       }
     );
-
+  
     return () => unsubscribe();
   }, []);
 
@@ -50,7 +50,7 @@ const App = () => {
     try {
       await deleteDoc(doc(db, "transactions", id));
       console.log("Deleted transaction with id:", id);
-      // No need to update local state manually—onSnapshot will update it.
+      
     } catch (error) {
       console.error("Error deleting transaction:", error);
     }
@@ -75,7 +75,7 @@ const App = () => {
 
       {transactions.length > 0 && (
         <>
-          <h3>Transaction History</h3>
+          <h3 style={{margin:"15px"}} className="transaction-history-text">Transaction History</h3>
           <hr />
           <div className="history-list">{transactionHistory}</div>
         </>
