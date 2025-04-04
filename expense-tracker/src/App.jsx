@@ -1,84 +1,118 @@
-import React, { use, useState, useEffect } from "react";
-import { db } from "./firebaseConfig"; 
-import {
-  collection,
-  addDoc,
-  onSnapshot,
-  deleteDoc,
-  doc,
-  Timestamp,
-} from "firebase/firestore";
+import React, { useState, useEffect } from "react";
+import { db } from "./firebaseConfig";
+import { collection, query, orderBy, limit, getDocs, startAfter, startAt } from "firebase/firestore";
 import Balance from "./Components/Balance";
 import Transactions from "./Components/Transactions";
 import AddTransactions from "./Components/AddTransactions";
 import HistoryList from "./Components/HistoryList";
 import "./app.css";
+import { BsXLg } from "react-icons/bs";
+
+const PAGE_SIZE = 10;
 
 const App = () => {
-  const [balance, setBalance] = useState(0);
   const [transactions, setTransactions] = useState([]);
-  const [income, setIncome] = useState(0);
-  const [expense, setExpense] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [pageSnapshots, setPageSnapshots] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
 
-  useEffect(() => {
-    const unsubscribe = onSnapshot(
-      collection(db, "transactions"),
-      (snapshot) => {
-        const transactionData = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+  const fetchTransactions = async (pageNumber, direction) => {
+    setLoading(true);
+    try {
+      let q = query(
+        collection(db, "transactions"),
+        orderBy("timestamp", "desc"),
+        limit(PAGE_SIZE)
+      );
+
+      
   
-        const sortedTransactions = transactionData.sort((a, b) => b.timestamp - a.timestamp);
-  
-        setTransactions(sortedTransactions);
+      if (direction === "next" && pageSnapshots[pageNumber - 2]) {
+        q = query(q, startAfter(pageSnapshots[pageNumber - 2]));
+      } else if (direction === "prev" && pageNumber > 1) {
+        q = query(q, startAfter(pageSnapshots[pageNumber - 2]));
       }
-    );
+
+      const snapshot = await getDocs(q);
+      const fetchedTransactions = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+        timestamp: doc.data().timestamp?.toDate?.() || new Date(),
+      }));
   
-    return () => unsubscribe();
+      setTransactions(fetchedTransactions);
+
+      console.log("Fetching transactions for page:", pageNumber, fetchedTransactions.length); 
+  
+      if (snapshot.docs.length > 0) {
+        const last = snapshot.docs[snapshot.docs.length - 1];
+  
+        setPageSnapshots(prevSnapshots => {
+          const newSnapshots = [...prevSnapshots];
+          newSnapshots[pageNumber - 1] = last;
+          return newSnapshots;
+        });
+      }
+  
+      setHasMore(snapshot.docs.length === PAGE_SIZE);
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchTransactions(1, "next");
   }, []);
 
-  async function addTransaction(newTransaction) {
-    try {
-      await addDoc(collection(db, "transactions"), newTransaction);
-    } catch (error) {
-      console.error("Error adding transaction: ", error);
+  const handleNextPage = () => {
+    if (hasMore) {
+      setPage(prev => prev + 1);
+      fetchTransactions(page + 1, "next");
     }
-  }
+  };
 
-  async function handleDeleteTransaction(id) {
-    try {
-      await deleteDoc(doc(db, "transactions", id));
-      console.log("Deleted transaction with id:", id);
-      
-    } catch (error) {
-      console.error("Error deleting transaction:", error);
+  const handlePrevPage = () => {
+    if (page > 1) {
+      setPage(prev => prev - 1);
+      fetchTransactions(page - 1, "prev");
     }
-  }
-  const transactionHistory = transactions.map((item) => (
-    <HistoryList
-      key={item.id}
-      id={item.id}
-      type={item.type}
-      text={item.text}
-      amount={item.amount}
-      deleteTransaction={handleDeleteTransaction}
-    />
-  ));
+  };
 
   return (
     <>
       <h1>Expense Tracker</h1>
       <Balance transactions={transactions} />
       <Transactions transactions={transactions} />
-      <AddTransactions addTransaction={addTransaction} />
+      <AddTransactions fetchTransactions={() => fetchTransactions(1, "next")} />
 
-      {transactions.length > 0 && (
+      {loading ? (
+        <p>Loading transactions...</p>
+      ) : transactions.length > 0 ? (
         <>
-          <h3 style={{margin:"15px"}} className="transaction-history-text">Transaction History</h3>
+          <h3>Transaction History</h3>
           <hr />
-          <div className="history-list">{transactionHistory}</div>
+          <div className="history-list">
+            {transactions.map(item => (
+              <HistoryList key={item.id} {...item} />
+            ))}
+          </div>
+
+          <div style={{ margin: "20px", display: "flex", justifyContent: "space-between" }}>
+            <button onClick={handlePrevPage} disabled={page === 1}>
+              Previous
+            </button>
+
+            <span>Page {page}</span>
+
+            <button onClick={handleNextPage} disabled={!hasMore}>
+              Next
+            </button>
+          </div>
         </>
+      ) : (
+        <p>No transactions available.</p>
       )}
     </>
   );
